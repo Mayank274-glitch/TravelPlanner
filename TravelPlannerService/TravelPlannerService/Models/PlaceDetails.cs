@@ -15,4 +15,9 @@ namespace TravelPlannerService.Models
                                                      // Add other properties as needed
     }
 
+    public class GoogleTextSearchResponse
+    {
+        public IEnumerable<PlaceResult> Results { get; set; }
+    }
+
 }

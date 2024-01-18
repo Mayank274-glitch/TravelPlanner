@@ -1,0 +1,22 @@
+<!-- home.component.html -->
+<div class="home-container">
+  <h1>Welcome to Travel Planner</h1>
+  
+  <div class="city-search">
+    <label for="city">Search City:</label>
+    <input [(ngModel)]="selectedCity" placeholder="Enter City Name" />
+    <button (click)="setCity(selectedCity)">Set City</button>
+  </div>
+
+  <div class="cover-pic" *ngIf="showCoverPic">
+    <!-- Your cover pic content goes here -->
+    <img src="path/to/your/cover-pic.jpg" alt="Cover Pic" />
+  </div>
+
+  <div class="city-list">
+    <h2>Explore Cities:</h2>
+    <ul>
+      <li *ngFor="let city of cities" (click)="setCity(city)">{{ city }}</li>
+    </ul>
+  </div>
+</div>

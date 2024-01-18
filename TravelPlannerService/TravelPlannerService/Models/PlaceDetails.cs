@@ -20,4 +20,10 @@ namespace TravelPlannerService.Models
         public IEnumerable<PlaceResult> Results { get; set; }
     }
 
+    public class AddPlaceToItineraryRequest
+    {
+        public int ItineraryId { get; set; }
+        public int PlaceId { get; set; }
+    }
+
 }

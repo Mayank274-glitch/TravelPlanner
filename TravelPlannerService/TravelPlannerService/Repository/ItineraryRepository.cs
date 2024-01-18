@@ -45,5 +45,28 @@ namespace TravelPlannerService.Repository
                 _dbContext.SaveChanges();
             }
         }
+
+        public void AddPlaceToItinerary(int itineraryId, Place place)
+        {
+            var itinerary = GetById(itineraryId);
+            if (itinerary != null)
+            {
+                itinerary.Places.Add(place);
+                Update(itinerary);
+            }
+        }
+
+        public IEnumerable<Place> GetPlacesForDate(DateTime date)
+        {
+            // Implementation to fetch places for a specific date from your database
+            // Use LINQ or any other method based on your database structure
+
+            // Example using LINQ:
+            var places = _dbContext.Places
+                .Where(place => place.Itinerary.Date == date)
+                .ToList();
+
+            return places;
+        }
     }
 }

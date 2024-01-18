@@ -1,0 +1,45 @@
+<!-- budget.component.html -->
+<div class="budget-container">
+    <h2>Budget</h2>
+  
+    <!-- Expense Form -->
+    <form [formGroup]="expenseForm" (ngSubmit)="addExpense()">
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <input type="text" id="category" formControlName="category" />
+        <div *ngIf="expenseForm.get('category')?.hasError('required') && expenseForm.get('category')?.touched">
+          Category is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" formControlName="amount" />
+        <div *ngIf="expenseForm.get('amount')?.hasError('required') && expenseForm.get('amount')?.touched">
+          Amount is required.
+        </div>
+        <div *ngIf="expenseForm.get('amount')?.hasError('min') && expenseForm.get('amount')?.touched">
+          Amount must be greater than 0.
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="!expenseForm.valid">Add Expense</button>
+    </form>
+  
+    <!-- Last Expenses -->
+    <div class="last-expenses">
+      <h3>Last Expenses</h3>
+      <ul>
+        <li *ngFor="let expense of expenses">
+          {{ expense.category }}: {{ expense.amount | currency:'INR':'symbol':'1.2-2' }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Total Expenses -->
+    <div class="total-expenses">
+      <h3>Total Expenses</h3>
+      <p>{{ totalExpenses | currency:'INR':'symbol':'1.2-2' }}</p>
+    </div>
+  </div>
+  

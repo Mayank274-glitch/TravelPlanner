@@ -1,0 +1,27 @@
+<!-- itinerary.component.html -->
+<div class="itinerary-container">
+    <h2>Itinerary</h2>
+    <div *ngFor="let date of itineraryDates">
+      <div class="date-panel" [class.expanded]="expandedDate && expandedDate.getTime() === date.getTime()">
+        <div class="date-header" (click)="toggleDatePanel(date)">
+          {{ date | date:'fullDate' }}
+        </div>
+        <div class="city-list">
+          <!-- Display cities for the selected date -->
+          <!-- You can replace this with the actual data from your application -->
+          <div class="city" *ngFor="let city of citiesForDate">
+            {{ city }}
+          </div>
+        </div>
+        <button class="add-city-btn" (click)="openAddCityPanel()">Add City</button>
+        <div *ngIf="showAddCityPanel" class="add-city-panel">
+          <!-- Add city form goes here -->
+          <!-- Include the form to add a city to the Places database -->
+          <!-- You can use the PlacesService to add the city -->
+          <!-- Include a button to close the panel -->
+          <button (click)="closeAddCityPanel()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

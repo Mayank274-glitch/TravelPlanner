@@ -1,0 +1,17 @@
+<!-- explore.component.html -->
+<div class="explore-container">
+  <h2>Explore Around {{ selectedCity }}</h2>
+
+  <!-- Display top places around the selected city -->
+  <div class="place" *ngFor="let place of topPlaces" (click)="openAddPopup(place)">
+    {{ place.name }}
+  </div>
+
+  <!-- Add place popup -->
+  <div *ngIf="showAddPopup" class="add-popup">
+    <label for="datetime">Select Date and Time:</label>
+    <input type="datetime-local" id="datetime" [(ngModel)]="selectedDatetime" />
+    <button (click)="handleAddPlaceToItinerary()">Save</button>
+    <button (click)="closeAddPopup()">Cancel</button>
+  </div>
+</div>

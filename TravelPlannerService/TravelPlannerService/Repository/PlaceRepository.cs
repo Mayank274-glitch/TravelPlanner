@@ -45,5 +45,10 @@ namespace TravelPlannerService.Repository
                 _dbContext.SaveChanges();
             }
         }
+
+        public IEnumerable<Place> GetPlacesByItineraryId(int itineraryId)
+        {
+            return _dbContext.Places.Where(p => p.ItineraryId == itineraryId).ToList();
+        }
     }
 }

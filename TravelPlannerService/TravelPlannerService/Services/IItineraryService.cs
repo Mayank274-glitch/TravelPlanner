@@ -4,10 +4,13 @@ namespace TravelPlannerService.Services
 {
     public interface IItineraryService
     {
-        IEnumerable<Itinerary> GetAll();
-        Itinerary GetById(int id);
-        void Create(Itinerary itinerary);
-        void Update(Itinerary itinerary);
-        void Delete(int id);
+        IEnumerable<Itinerary> GetAllItineraries();
+        Itinerary GetItineraryById(int id);
+        Itinerary CreateItinerary(ItineraryDto itineraryDto);
+        Itinerary UpdateItinerary(int id, ItineraryDto itineraryDto);
+        bool DeleteItinerary(int id);
+        Place AddPlaceToItinerary(int itineraryId, PlaceDto placeDto);
+        IEnumerable<string> GetCitiesForDate(DateTime date);
     }
+
 }

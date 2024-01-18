@@ -1,0 +1,45 @@
+/* itinerary.component.css */
+.itinerary-container {
+    padding: 20px;
+  }
+  
+  .date-panel {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .date-header {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .date-panel.expanded {
+    background-color: #f0f0f0;
+  }
+  
+  .city-list {
+    margin-bottom: 10px;
+  }
+  
+  .city {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .add-city-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .add-city-panel {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+  

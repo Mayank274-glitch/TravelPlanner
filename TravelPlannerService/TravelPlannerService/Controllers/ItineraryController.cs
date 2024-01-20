@@ -98,9 +98,9 @@ namespace TravelPlannerService.Controllers
         // ItineraryController.cs
 
         [HttpGet("cities")]
-        public IActionResult GetCitiesForDate(DateTime date)
+        public IActionResult GetCitiesForDate(DateTime startDate, DateTime endDate)
         {
-            var cities = _itineraryService.GetCitiesForDate(date);
+            var cities = _itineraryService.GetCitiesForDate(startDate, endDate);
 
             if (cities == null)
             {
@@ -110,5 +110,54 @@ namespace TravelPlannerService.Controllers
             return Ok(cities);
         }
 
+        [HttpPost("store-city/{itineraryId}")]
+        public IActionResult StoreCityInItinerary(int itineraryId, [FromBody] string city)
+        {
+            var result = _itineraryService.StoreCityInItinerary(itineraryId, city);
+
+            if (!result)
+            {
+                return NotFound(); // Handle case where itinerary is not found
+            }
+
+            return Ok(new { message = "City stored in itinerary successfully" });
+        }
+
+        // Other actions...
+
+        // New action for storing the whole ItineraryDto
+        [HttpPost("store-itinerary")]
+        public IActionResult StoreItinerary([FromBody] ItineraryDto itineraryDto)
+        {
+            var createdItinerary = _itineraryService.CreateItinerary(itineraryDto);
+
+            return CreatedAtAction(nameof(GetItineraryById), new { id = createdItinerary.Id }, createdItinerary);
+        }
+
+        [HttpPost("store-city-and-itinerary")]
+        public IActionResult StoreCityAndItinerary([FromBody] CityAndItineraryDto data)
+        {
+            if (data == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+
+            // Validate or process data as needed
+
+            // Assuming you have a method in your service to create an itinerary
+            var createdItinerary = _itineraryService.CreateItinerary(new ItineraryDto
+            {
+                Title = data.City,
+                StartDate = data.StartDate,
+                EndDate = data.EndDate,
+                // Add other properties as needed
+            });
+
+            // Assuming you have a method in your service to associate a city with an itinerary
+            _itineraryService.StoreCityInItinerary(createdItinerary.Id, data.City);
+
+            // You can return the created itinerary or any other response as needed
+            return CreatedAtAction(nameof(GetItineraryById), new { id = createdItinerary.Id }, createdItinerary);
+        }
     }
 }

@@ -50,6 +50,6 @@ getCitiesForDate(date: string): void {
       // Handle error scenarios
     }
   );
+  
 }
-
 }

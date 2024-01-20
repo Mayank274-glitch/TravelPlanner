@@ -14,6 +14,6 @@ namespace TravelPlannerService.Repository
         void AddPlaceToItinerary(int itineraryId, Place place);
 
         // New method for fetching places for a specific date
-        IEnumerable<Place> GetPlacesForDate(DateTime date);
+        IEnumerable<Place> GetPlacesForDate(DateTime? startDate, DateTime? endDate);
     }
 }

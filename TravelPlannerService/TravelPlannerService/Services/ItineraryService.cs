@@ -28,7 +28,9 @@ namespace TravelPlannerService.Services
             {
                 // Map properties from DTO to Itinerary
                 Title = itineraryDto.Title,
-                Date = itineraryDto.Date
+                StartDate = itineraryDto.StartDate,
+                EndDate = itineraryDto.EndDate,
+                City = itineraryDto.City
                 // Add other properties as needed
             };
 
@@ -44,7 +46,8 @@ namespace TravelPlannerService.Services
             {
                 // Map properties from DTO to existing Itinerary
                 existingItinerary.Title = itineraryDto.Title;
-                existingItinerary.Date = itineraryDto.Date;
+                existingItinerary.StartDate = itineraryDto.StartDate;
+                existingItinerary.EndDate = itineraryDto.EndDate;
                 // Update other properties as needed
 
                 _itineraryRepository.Update(existingItinerary);
@@ -88,10 +91,10 @@ namespace TravelPlannerService.Services
             return null;
         }
 
-        public IEnumerable<string> GetCitiesForDate(DateTime date)
+        public IEnumerable<string> GetCitiesForDate(DateTime? startDate, DateTime? endDate)
         {
-            // Retrieve places for the given date from the repository
-            var placesForDate = _itineraryRepository.GetPlacesForDate(date);
+            // Retrieve places for the given date and date range from the repository
+            var placesForDate = _itineraryRepository.GetPlacesForDate(startDate, endDate);
 
             // Extract distinct cities from the retrieved places' associated itineraries
             var cities = placesForDate
@@ -100,6 +103,22 @@ namespace TravelPlannerService.Services
                 .Distinct();
 
             return cities;
+        }
+
+
+        public bool StoreCityInItinerary(int itineraryId, string city)
+        {
+            var itinerary = _itineraryRepository.GetById(itineraryId);
+
+            if (itinerary == null)
+            {
+                return false; // Itinerary not found
+            }
+
+            itinerary.City = city;
+            _itineraryRepository.Update(itinerary);
+
+            return true;
         }
     }
 }

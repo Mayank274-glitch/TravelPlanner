@@ -1,22 +1,26 @@
 <!-- home.component.html -->
-<div class="home-container">
-  <h1>Welcome to Travel Planner</h1>
-  
-  <div class="city-search">
-    <label for="city">Search City:</label>
-    <input [(ngModel)]="selectedCity" placeholder="Enter City Name" />
-    <button (click)="setCity(selectedCity)">Set City</button>
-  </div>
 
-  <div class="cover-pic" *ngIf="showCoverPic">
-    <!-- Your cover pic content goes here -->
-    <img src="path/to/your/cover-pic.jpg" alt="Cover Pic" />
-  </div>
+<mat-form-field class="example-full-width">
+  <input
+    type="text"
+    placeholder="Search City"
+    matInput
+    [formControl]="cityControl"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+      {{ city }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
 
-  <div class="city-list">
-    <h2>Explore Cities:</h2>
-    <ul>
-      <li *ngFor="let city of cities" (click)="setCity(city)">{{ city }}</li>
-    </ul>
-  </div>
-</div>
+<!-- Calendar for selecting the date of travel -->
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="selectedDate" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<!-- Button to set city and date -->
+<button mat-raised-button (click)="setCityAndDates()">Set City and Date</button>

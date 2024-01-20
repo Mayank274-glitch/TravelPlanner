@@ -12,6 +12,23 @@ import { ExpensesService } from './services/expenses.service';
 import { ConfigService } from './services/config.service';
 import { BudgetComponent } from './budget/budget.component';
 import { ItineraryComponent } from './itinerary/itinerary.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule,MAT_DATE_FORMATS  } from '@angular/material/core';
+
+const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'MM/DD/YYYY',
+  },
+  display: {
+    dateInput: 'MM/DD/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -26,14 +43,21 @@ import { ItineraryComponent } from './itinerary/itinerary.component';
     BrowserModule,
     FormsModule, 
     ReactiveFormsModule,
-    AppRoutingModule, // Include your routing module here
+    MatDatepickerModule ,
+    MatAutocompleteModule ,
+    MatNativeDateModule ,
+    MatFormFieldModule,
+    AppRoutingModule,
+    BrowserAnimationsModule, // Include your routing module here
   ],
   providers: [
     ItineraryService,
     NotesService,
     PlacesService,
     ExpensesService,
-    ConfigService,],
+    ConfigService,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+  ],  
   bootstrap: [AppComponent],
 })
 export class AppModule {}

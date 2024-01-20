@@ -56,17 +56,21 @@ namespace TravelPlannerService.Repository
             }
         }
 
-        public IEnumerable<Place> GetPlacesForDate(DateTime date)
+        public IEnumerable<Place> GetPlacesForDate(DateTime? startDate, DateTime? endDate)
         {
-            // Implementation to fetch places for a specific date from your database
+            // Implementation to fetch places for a specific date and date range from your database
             // Use LINQ or any other method based on your database structure
 
             // Example using LINQ:
             var places = _dbContext.Places
-                .Where(place => place.Itinerary.Date == date)
-                .ToList();
+            .Where(place =>
+                place.Itinerary.StartDate >= startDate &&
+                place.Itinerary.EndDate <= endDate)
+            .ToList();
+
 
             return places;
         }
+
     }
 }

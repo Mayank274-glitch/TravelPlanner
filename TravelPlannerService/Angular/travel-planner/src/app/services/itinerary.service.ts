@@ -41,4 +41,15 @@ export class ItineraryService {
   getCitiesForDate(date: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/Itinerary/cities?date=${date}`);
   }
+
+  storeCityAndItinerary(city: string, itineraryDates: string[]): Observable<any> {
+    const data = {
+      city: city,
+      itineraryDates: itineraryDates,
+    };
+
+    return this.http.post(`${this.apiUrl}/api/store-city-itinerary`, data);
+  }
+
+  
 }

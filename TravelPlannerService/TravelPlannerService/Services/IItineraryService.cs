@@ -10,7 +10,9 @@ namespace TravelPlannerService.Services
         Itinerary UpdateItinerary(int id, ItineraryDto itineraryDto);
         bool DeleteItinerary(int id);
         Place AddPlaceToItinerary(int itineraryId, PlaceDto placeDto);
-        IEnumerable<string> GetCitiesForDate(DateTime date);
+        IEnumerable<string> GetCitiesForDate(DateTime? startDate, DateTime? endDate);
+
+        bool StoreCityInItinerary(int itineraryId, string city);
     }
 
 }

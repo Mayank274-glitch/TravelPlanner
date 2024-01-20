@@ -1,7 +1,8 @@
 export interface Itinerary {
     id: number;
     title?: string;
-    date: string; // Assuming a string format for simplicity, adjust as needed
+    startDate: string; // Assuming a string format for simplicity, adjust as needed
+    endDate: string; // Assuming a string format for simplicity, adjust as needed
     city?: string;
   }
   

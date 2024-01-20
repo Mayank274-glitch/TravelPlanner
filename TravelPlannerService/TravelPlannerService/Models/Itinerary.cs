@@ -4,18 +4,29 @@
     {
         public int Id { get; set; }
         public string? Title { get; set; }
-        public DateTime Date { get; set; }
-        public string? City { get; set; } // Add the City property
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string? City { get; set; }
 
         public ICollection<Place> Places { get; set; } = new List<Place>();
     }
+
 
     // ItineraryDto.cs
     public class ItineraryDto
     {
         public string Title { get; set; }
-        public DateTime Date { get; set; }
-        // Add other properties as needed
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string? City { get; set; }
     }
+
+
+    public class CityAndItineraryDto
+    {
+        public string City { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
+
 }

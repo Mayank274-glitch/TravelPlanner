@@ -2,6 +2,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PlacesService } from '../services/places.service';
 import { PlaceResult } from '../models/place-result.model';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-explore',
@@ -10,6 +11,7 @@ import { PlaceResult } from '../models/place-result.model';
 })
 export class ExploreComponent {
   @Input() selectedCity: string = '';
+  @Input() selectedItineraryDates: Date[] = []; // Input binding for itinerary dates
   @Output() addPlaceToItinerary: EventEmitter<any> = new EventEmitter<any>();
 
   topPlaces: PlaceResult[] = [];
@@ -17,7 +19,7 @@ export class ExploreComponent {
   selectedPlace: PlaceResult | null = null;
   selectedDatetime: string = '';
 
-  constructor(private placesService: PlacesService) {}
+  constructor(private placesService: PlacesService, private configService: ConfigService) {}
 
   // Method to fetch top places around the selected city from the API
   fetchTopPlaces(): void {
@@ -42,7 +44,7 @@ export class ExploreComponent {
   closeAddPopup(): void {
     this.showAddPopup = false;
     this.selectedPlace = null;
-    this.selectedDatetime = ''; // Clear selected datetime when closing popup
+    // No need to clear selectedDatetime if you want to retain the value
   }
 
   // Method to handle adding a place to the itinerary

@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// NoteRepository.cs
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TravelPlannerService.DbContextCreate;
 using TravelPlannerService.Models;
 
@@ -42,6 +45,47 @@ namespace TravelPlannerService.Repository
             if (note != null)
             {
                 _dbContext.Notes.Remove(note);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public IEnumerable<Note> GetNotesByDate(DateTime date)
+        {
+            return _dbContext.Notes.Where(note => note.Date.Date == date.Date).ToList();
+        }
+
+        public void AddNoteByDate(Note note)
+        {
+            _dbContext.Notes.Add(note);
+            _dbContext.SaveChanges();
+        }
+
+        public Note GetNoteDetailsByDate(DateTime date, int id)
+        {
+            return _dbContext.Notes.FirstOrDefault(note => note.Date.Date == date.Date && note.Id == id);
+        }
+
+        public void UpdateNoteByDate(Note note)
+        {
+            var existingNote = _dbContext.Notes.Find(note.Id);
+
+            if (existingNote != null)
+            {
+                existingNote.Title = note.Title;
+                existingNote.Content = note.Content;
+                existingNote.Date = note.Date;
+
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public void DeleteNoteByDate(DateTime date, int id)
+        {
+            var noteToRemove = _dbContext.Notes.FirstOrDefault(note => note.Date.Date == date.Date && note.Id == id);
+
+            if (noteToRemove != null)
+            {
+                _dbContext.Notes.Remove(noteToRemove);
                 _dbContext.SaveChanges();
             }
         }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from './config.service';
+import { CityAndItineraryDto } from '../models/CityAndItineraryDto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -38,17 +39,12 @@ export class ItineraryService {
     return this.http.post(`${this.apiUrl}/api/Itinerary/${itineraryId}/places`, placeData);
   }
 
-  getCitiesForDate(date: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/Itinerary/cities?date=${date}`);
+  getCitiesForDate(startDate: string, endDate: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/Itinerary/cities?startDate=${startDate}&endDate=${endDate}`);
   }
-
-  storeCityAndItinerary(city: string, itineraryDates: string[]): Observable<any> {
-    const data = {
-      city: city,
-      itineraryDates: itineraryDates,
-    };
-
-    return this.http.post(`${this.apiUrl}/api/store-city-itinerary`, data);
+  
+  storeCityAndItinerary(data: CityAndItineraryDto): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/Itinerary/store-city-and-itinerary`, data);
   }
 
   

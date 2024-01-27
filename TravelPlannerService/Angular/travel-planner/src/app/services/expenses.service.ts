@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfigService } from './config.service';
+import { ExpenseDto } from '../models/expense.model';
+import { ExpenseTotalDto } from '../models/expense-total.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,7 @@ export class ExpensesService {
     return this.http.get(`${this.apiUrl}/api/expenses`);
   }
 
-  createExpense(data: any): Observable<any> {
+  createExpense(data: ExpenseDto): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/expenses`, data);
   }
 
@@ -27,7 +29,7 @@ export class ExpensesService {
     return this.http.get(`${this.apiUrl}/api/expenses/${id}`);
   }
 
-  updateExpense(id: string, data: any): Observable<any> {
+  updateExpense(id: string, data: ExpenseDto): Observable<any> {
     return this.http.put(`${this.apiUrl}/api/expenses/${id}`, data);
   }
 
@@ -35,7 +37,7 @@ export class ExpensesService {
     return this.http.delete(`${this.apiUrl}/api/expenses/${id}`);
   }
 
-  getTotalExpenses(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/expenses/total`);
+  getTotalExpenses(currency: string): Observable<ExpenseTotalDto> {
+    return this.http.get<ExpenseTotalDto>(`${this.apiUrl}/api/expenses/total?currency=${currency}`);
   }
 }

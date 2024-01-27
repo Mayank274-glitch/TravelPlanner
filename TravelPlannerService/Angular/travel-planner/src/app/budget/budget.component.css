@@ -1,0 +1,44 @@
+/* Add this to your styles.css or styles.scss */
+.budget-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .error-message {
+    color: #ff0000; /* Red color for error messages */
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .last-expenses {
+    margin-top: 20px;
+  }
+  
+  .last-expenses ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .last-expenses li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .category {
+    font-weight: bold;
+  }
+  
+  .amount {
+    margin-left: 10px;
+  }
+  

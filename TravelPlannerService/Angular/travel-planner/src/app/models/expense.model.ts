@@ -1,8 +1,8 @@
-export interface Expense {
-    id: number;
+export interface ExpenseDto {
     category: string;
-    value: number;
+    expenseValue: number;
     currency: string;
+    date: string;
     // Add other properties as needed
   }
   

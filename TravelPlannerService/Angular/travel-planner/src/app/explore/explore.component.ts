@@ -19,7 +19,12 @@ export class ExploreComponent {
   selectedPlace: PlaceResult | null = null;
   selectedDatetime: string = '';
 
-  constructor(private placesService: PlacesService, private configService: ConfigService) {}
+  constructor(private placesService: PlacesService,
+     private configService: ConfigService) {
+      this.selectedCity = this.configService.getSelectedCity();
+      this.selectedItineraryDates = this.configService.getSelectedItineraryDates();
+     // this.fetchTopPlaces(); 
+    }
 
   // Method to fetch top places around the selected city from the API
   fetchTopPlaces(): void {

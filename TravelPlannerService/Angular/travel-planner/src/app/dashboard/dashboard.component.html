@@ -1,0 +1,35 @@
+<div class="dashboard-background" [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" ></div>
+<div class="dashboard-container">
+  <h2>Plan your Itinerary</h2>
+  
+  <!-- Expandable panel for ExploreComponent -->
+  <mat-expansion-panel class="dashboard-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="panel-icon">🌍</span> Explore
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-explore></app-explore>
+  </mat-expansion-panel>
+
+  <!-- Expandable panel for ItineraryComponent -->
+  <mat-expansion-panel class="dashboard-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="panel-icon">🗺️</span> Itinerary
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-itinerary></app-itinerary> <!-- Replace with the actual selector of your ItineraryComponent -->
+  </mat-expansion-panel>
+
+  <!-- Expandable panel for BudgetComponent -->
+  <mat-expansion-panel class="dashboard-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="panel-icon">💰</span> Budget
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-budget></app-budget> <!-- Replace with the actual selector of your BudgetComponent -->
+  </mat-expansion-panel>
+</div>
+<a href="http://www.freepik.com">Designed by Freepik</a>

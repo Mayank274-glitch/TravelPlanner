@@ -1,26 +1,62 @@
 <!-- home.component.html -->
-
-<mat-form-field class="example-full-width">
-  <input
-    type="text"
-    placeholder="Search City"
-    matInput
-    [formControl]="cityControl"
-    [matAutocomplete]="auto"
-  />
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let city of filteredCities | async" [value]="city">
-      {{ city }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<!-- Calendar for selecting the date of travel -->
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="selectedDate" />
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
-
-<!-- Button to set city and date -->
-<button mat-raised-button (click)="setCityAndDates()">Set City and Date</button>
+<div class="home-background" [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" >
+  <div class="home-container">
+    <h1>Travel Planner</h1>
+    <h2>Please log in to set city and dates.</h2>
+    <!-- Centered Content -->
+    <div class="centered-content">
+      <!-- City Autocomplete -->
+      <div class="input-container">
+        <mat-form-field class="full-width">
+          <input
+            type="text"
+            placeholder="Search City"
+            matInput
+            [formControl]="cityControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+              {{ city }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+  
+      <!-- Date Range Picker -->
+      <div class="date-picker-container">
+        <mat-form-field class="input-container">
+          <input
+            matInput
+            [matDatepicker]="startPicker"
+            placeholder="Start Date"
+            [formControl]="startDateControl"
+          />
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field class="input-container">
+          <input
+            matInput
+            [matDatepicker]="endPicker"
+            placeholder="End Date"
+            [formControl]="endDateControl"
+          />
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+  
+      <!-- Button to set city and dates -->
+      <!-- Button to set city and dates -->
+      <button mat-raised-button class="set-button" (click)="setCityAndDates()" *ngIf="user">Set City and Dates</button>
+      <div *ngIf="!user">
+        <!-- Log In and Log Out buttons -->
+        <button mat-raised-button color="primary" (click)="signInWithGoogle()">Log In</button>
+        <button mat-raised-button color="warn" (click)="signOut()">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+<a href="http://www.freepik.com">Designed by Freepik</a>

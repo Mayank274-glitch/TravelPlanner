@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItenaryService", "TravelPlannerService\ItenaryService.csproj", "{E646E5DC-B71D-4546-8AF0-C7D8158A4DF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetService", "BudgetService\BudgetService.csproj", "{490110D7-E09C-46DD-8D3A-EDBCEB1D5A63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetService", "BudgetService\BudgetService.csproj", "{490110D7-E09C-46DD-8D3A-EDBCEB1D5A63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGetway", "ApiGetway\ApiGetway.csproj", "{A9FF7E6F-3C3A-4A82-88BF-23F6D9FA6302}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{490110D7-E09C-46DD-8D3A-EDBCEB1D5A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{490110D7-E09C-46DD-8D3A-EDBCEB1D5A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{490110D7-E09C-46DD-8D3A-EDBCEB1D5A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9FF7E6F-3C3A-4A82-88BF-23F6D9FA6302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FF7E6F-3C3A-4A82-88BF-23F6D9FA6302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FF7E6F-3C3A-4A82-88BF-23F6D9FA6302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FF7E6F-3C3A-4A82-88BF-23F6D9FA6302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,27 +1,39 @@
 <!-- itinerary.component.html -->
 <div class="itinerary-container">
-    <h2>Itinerary</h2>
-    <div *ngFor="let date of itineraryDates">
-      <div class="date-panel" [class.expanded]="expandedDate && expandedDate.getTime() === date.getTime()">
-        <div class="date-header" (click)="toggleDatePanel(date)">
-          {{ date | date:'fullDate' }}
-        </div>
-        <div class="city-list">
-          <!-- Display cities for the selected date -->
-          <!-- You can replace this with the actual data from your application -->
-          <div class="city" *ngFor="let city of citiesForDate">
-            {{ city }}
-          </div>
-        </div>
-        <button class="add-city-btn" (click)="openAddCityPanel()">Add City</button>
-        <div *ngIf="showAddCityPanel" class="add-city-panel">
-          <!-- Add city form goes here -->
-          <!-- Include the form to add a city to the Places database -->
-          <!-- You can use the PlacesService to add the city -->
-          <!-- Include a button to close the panel -->
-          <button (click)="closeAddCityPanel()">Close</button>
+  <h2>Itinerary</h2>
+  <div *ngFor="let date of itineraryDates">
+    <div class="date-panel" [class.expanded]="expandedDate && expandedDate.getTime() === date.getTime()">
+      <div class="date-header" (click)="toggleDatePanel(date)">
+        {{ date | date:'fullDate' }}
+      </div>
+      <div class="city-list">
+        <div class="city" *ngFor="let city of citiesForDate">
+          {{ city }}
         </div>
       </div>
+      <mat-form-field class="search-input">
+        <input matInput [value]="getSearchQuery(date)" (input)="searchPlaces(date)" placeholder="Search for places">
+      </mat-form-field>
+      <mat-option *ngFor="let place of getPlacesForDate(date)" (click)="selectPlace(place)">
+        {{ place.name }}
+      </mat-option>
+      <button mat-raised-button color="primary" (click)="savePlace(date)">Add Place</button>
+
+      <!-- Notes Section -->
+      <div class="notes-section">
+        <mat-form-field class="notes-input">
+          <textarea matInput [(ngModel)]="noteTextByDate[date.getTime()]" placeholder="Add a note"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="saveNote(date)">Add Note</button>        
+          <!-- Display notes list -->
+          <div class="note-list">
+            <div *ngFor="let note of getNotesForDate(date)">
+              <p>{{ note.content }}</p>
+            </div>
+          </div>
+        </div>
+      <!-- End of Notes Section -->
+
     </div>
   </div>
-  
+</div>

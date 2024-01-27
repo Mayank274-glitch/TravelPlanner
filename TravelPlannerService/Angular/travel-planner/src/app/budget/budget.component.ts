@@ -1,7 +1,10 @@
 // budget.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExpensesService } from '../services/expenses.service';
+import { ExpenseDto } from '../models/expense.model';
+import { ExpenseTotalDto } from '../models/expense-total.model';
+
 
 @Component({
   selector: 'app-budget',
@@ -9,9 +12,11 @@ import { ExpensesService } from '../services/expenses.service';
   styleUrls: ['./budget.component.css']
 })
 export class BudgetComponent implements OnInit {
-  expenses: any[] = [];
+  expenses: ExpenseDto[] = [];
   totalExpenses: number = 0;
   expenseForm!: FormGroup;
+  selectedOption: string = 'Car rental';
+  categories: string[] = ['Flights', 'Lodging', 'Car rental', 'Public transit', 'Food', 'Drinks', 'Sightseeing', 'Activities', 'Shopping', 'Gas', 'Groceries', 'Other'];
 
   constructor(private fb: FormBuilder, private expenseService: ExpensesService) 
   {}
@@ -20,56 +25,69 @@ export class BudgetComponent implements OnInit {
     this.initExpenseForm();
     this.loadExpenses();
   }
-
+ 
   // Initialize the expense form
   initExpenseForm(): void {
+    const category = new FormControl(null, Validators.required);
     this.expenseForm = this.fb.group({
-      category: ['', [Validators.required]],
-      amount: [0, [Validators.required, Validators.min(0.01)]]
+      category: category, // Declare as a FormControl
+      amount: [null, [Validators.required, Validators.min(0)]],
+      date: [null, Validators.required],
     });
   }
 
-  // Load expenses from the API
   loadExpenses(): void {
     this.expenseService.getAllExpenses().subscribe(
-      (response: any[]) => {
+      (response: ExpenseDto[]) => {
         this.expenses = response || [];
-        this.calculateTotalExpenses();
+        if (this.expenses.length > 0) {
+          this.calculateTotalExpenses();
+        }
+        console.log(this.expenses);
       },
       (error) => {
         console.error('Error fetching expenses:', error);
-        // Handle error scenarios
+        // Handle error scenarios appropriately (e.g., show a user-friendly message)
       }
     );
   }
 
   // Method to add a new expense
-  addExpense(): void {
-    if (this.expenseForm.valid) {
-      const newExpense: any = this.expenseForm.value;
-      this.expenseService.createExpense(newExpense).subscribe(
-        (response: any) => {
-          this.expenses.push(response);
-          this.calculateTotalExpenses();
-          this.initExpenseForm();
-        },
-        (error) => {
-          console.error('Error adding expense:', error);
-          // Handle error scenarios
-        }
-      );
-    }
+// Modify your addExpense method to include the date
+addExpense(): void {
+  if (this.expenseForm.valid) {
+    const newExpense: ExpenseDto = {
+      category: this.expenseForm.value.category,
+      expenseValue: this.expenseForm.value.amount,
+      currency: 'INR',
+      date: this.expenseForm.value.date.toISOString(),
+      // Add other properties as needed
+    };
+
+    this.expenseService.createExpense(newExpense).subscribe(
+      (response: ExpenseDto) => {
+        this.expenses.push(response);
+        this.calculateTotalExpenses();
+        this.initExpenseForm();
+      },
+      (error) => {
+        console.error('Error adding expense:', error);
+        // Handle error scenarios
+      }
+    );
   }
+}
 
   // Method to calculate the total expenses
   calculateTotalExpenses(): void {
-    this.expenseService.getTotalExpenses().subscribe(
-      (response: any) => {
-        this.totalExpenses = response.total || 0;
+    this.expenseService.getTotalExpenses('INR').subscribe(
+      (result: ExpenseTotalDto) => {
+        // Handle the result
+        this.totalExpenses = result.totalExpense;
       },
       (error) => {
+        // Handle errors
         console.error('Error fetching total expenses:', error);
-        // Handle error scenarios
       }
     );
   }

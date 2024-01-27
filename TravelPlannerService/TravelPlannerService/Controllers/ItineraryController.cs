@@ -147,7 +147,7 @@ namespace TravelPlannerService.Controllers
             // Assuming you have a method in your service to create an itinerary
             var createdItinerary = _itineraryService.CreateItinerary(new ItineraryDto
             {
-                Title = data.City,
+                City = data.City,
                 StartDate = data.StartDate,
                 EndDate = data.EndDate,
                 // Add other properties as needed

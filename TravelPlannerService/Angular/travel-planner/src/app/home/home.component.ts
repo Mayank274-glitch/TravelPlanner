@@ -1,12 +1,11 @@
-/* home.component.ts */
+// home.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ConfigService } from '../services/config.service';
 import { ItineraryService } from '../services/itinerary.service';
-import { Router } from '@angular/router';
-import { SocialAuthService, GoogleLoginProvider,SocialUser } from 'angularx-social-login';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,15 +18,13 @@ export class HomeComponent implements OnInit {
   cities: string[] = ['City1', 'City2', 'City3'];
   filteredCities: Observable<string[]>;
   formGroup: FormGroup;
-  user: SocialUser | null = null;
-  loggedIn: boolean = false;
+  user: any; // Assuming you have a user object, update the type accordingly
 
   constructor(
     private configService: ConfigService,
-    private router: Router,
     private itineraryService: ItineraryService,
-    private fb: FormBuilder,
-    private authService: SocialAuthService
+    private authService: AuthService,
+    private fb: FormBuilder
   ) {
     this.filteredCities = this.cityControl.valueChanges.pipe(
       startWith(''),
@@ -42,18 +39,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
+    this.authService.loggedIn$.subscribe((loggedIn) => {
+      this.user = loggedIn;
     });
-  }
-
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-
-  signOut(): void {
-    this.authService.signOut();
   }
 
   private _filterCities(value: string): string[] {
@@ -70,13 +58,6 @@ export class HomeComponent implements OnInit {
   }
 
   setCityAndDates(): void {
-    if (!this.user) {
-      // User not logged in, redirect to login or show a login prompt
-      console.log('User not logged in. Please log in to set city and dates.');
-      // Add your logic to redirect or show login prompt here
-      return;
-    }
-
     const { city, startDate, endDate } = this.formGroup.value;
 
     this.configService.setSelectedCity(city);
@@ -95,12 +76,19 @@ export class HomeComponent implements OnInit {
       (response) => {
         console.log('Data stored successfully:', response);
         // Handle any additional logic or UI updates here
-        this.router.navigate(['/dashboard']);
+        // Redirect to the dashboard or any desired page
+        // For demonstration purposes, redirect to the dashboard
+        this.authService.login();
       },
       (error) => {
         console.error('Error storing data:', error);
         // Handle error scenarios
       }
     );
+  }
+
+  // Use AuthService's signOut method
+  signOut(): void {
+    this.authService.signOut();
   }
 }

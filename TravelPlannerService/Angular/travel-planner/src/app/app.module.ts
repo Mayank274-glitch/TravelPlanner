@@ -20,9 +20,6 @@ import { ItineraryComponent } from './itinerary/itinerary.component';
 import { BudgetComponent } from './budget/budget.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
-
 const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'MM/DD/YYYY',
@@ -60,22 +57,9 @@ const MY_DATE_FORMATS = {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule, // Include the SocialLoginModule
   ],
   providers: [
     // ... Your existing providers
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('<YOUR_GOOGLE_CLIENT_ID>'),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
   ],
   bootstrap: [AppComponent],
 })

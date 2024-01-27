@@ -1,11 +1,8 @@
-<!-- home.component.html -->
 <div class="home-background" [style.backgroundImage]="'url(' + backgroundImageUrl + ')'" >
   <div class="home-container">
     <h1>Travel Planner</h1>
     <h2>Please log in to set city and dates.</h2>
-    <!-- Centered Content -->
     <div class="centered-content">
-      <!-- City Autocomplete -->
       <div class="input-container">
         <mat-form-field class="full-width">
           <input
@@ -23,7 +20,6 @@
         </mat-form-field>
       </div>
   
-      <!-- Date Range Picker -->
       <div class="date-picker-container">
         <mat-form-field class="input-container">
           <input
@@ -48,12 +44,9 @@
         </mat-form-field>
       </div>
   
-      <!-- Button to set city and dates -->
-      <!-- Button to set city and dates -->
       <button mat-raised-button class="set-button" (click)="setCityAndDates()" *ngIf="user">Set City and Dates</button>
       <div *ngIf="!user">
-        <!-- Log In and Log Out buttons -->
-        <button mat-raised-button color="primary" (click)="signInWithGoogle()">Log In</button>
+        <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID" data-context="use" data-ux_mode="popup"></div>
         <button mat-raised-button color="warn" (click)="signOut()">Log Out</button>
       </div>
     </div>
